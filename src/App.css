@@ -1,0 +1,255 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0px 0px 0px 0px;
+}
+.manrope {
+  font-family: Manrope;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+.noScroll::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #ebf1ff;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e65c00;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9cd5ff;
+  /* background: var(--color5); */
+}
+
+/* .otp-code__input {
+  border-radius: 0.5rem;
+  font-family: monospace;
+  height: 50px;
+  border: 1px solid #ccc;
+  font-size: 2rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  color: #222;
+  width: 3rem !important;
+  margin: 0 0.5rem;
+} */
+
+.borderColor {
+  transition: var(--trans-04) !important;
+  border-color: var(--dark-blue) !important;
+}
+.borderColor2 {
+  transition: var(--trans-04) !important;
+  border: 1px solid var(--dark-blue) !important;
+  border-radius: 20px !important;
+}
+
+@media print {
+  .idNone {
+    display: none !important;
+  }
+  .borderNonePrint {
+    border: none !important;
+  }
+  .d-none.printOnly {
+    display: block !important;
+  }
+  .d-flex.printOnlyNone {
+    display: none !important;
+  }
+  .ct-responsive-table tr {
+    border-bottom: 3px solid rgba(255, 255, 255, 0.5) !important;
+  }
+}
+
+pre {
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+/*  */
+/*  */
+/*  */
+:root {
+  --main: #2a72a8;
+  --secondary: #f72585;
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url("https://fonts.googleapis.com/css?family=Nunito:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic");
+}
+@font-face {
+  font-family: Segoe UI;
+  src: url("../src/assets/fonts/segoe.ttf");
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("../src/assets/fonts/inter.ttf");
+}
+@font-face {
+  font-family: Manrope;
+  src: url("../src/assets/fonts/regular.otf");
+}
+@font-face {
+  font-family: Poppins;
+  src: url("../src//assets/fonts/Poppins.otf");
+}
+@font-face {
+  font-family: Sansation;
+  src: url("../src/assets/fonts/Sansation_Regular.ttf");
+}
+@font-face {
+  font-family: Calibri;
+  src: url("./assets/fonts/calibril.ttf");
+}
+@font-face {
+  font-family: "Microsoft San Serif";
+  src: url("./assets/fonts/micross.ttf");
+}
+@font-face {
+  font-family: "Manrope", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+}
+@font-face {
+  font-family: "Albert Sans", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+}
+
+@font-face {
+  font-family: Satoshi;
+  src: url("./assets/fonts/Satoshi-Regular.otf");
+}
+
+@font-face {
+  font-family: "Kumbh Sans", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap");
+}
+
+.Kumbh {
+  font-family: "Kumbh Sans", sans-serif;
+}
+
+.Satoshi {
+  font-family: Satoshi !important;
+}
+
+.Poppins {
+  font-family: Poppins !important;
+}
+
+.albertSans {
+  font-family: Albert San;
+}
+
+.printOnly {
+  font-family: Calibri !important;
+}
+.sansation {
+  font-family: Sansation !important;
+}
+.nunito {
+  font-family: Nunito !important;
+}
+.segoe {
+  font-family: Segoe UI;
+}
+.inter {
+  font-family: Inter;
+}
+.manrope {
+  font-family: Manrope;
+}
+.btn p {
+  display: none;
+}
+.noborder,
+.noborder:focus {
+  border: none !important;
+}
+
+/* Custom CSS for marquee effect */
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee {
+  display: flex;
+  animation: marquee-animation 20s linear infinite; /* Adjust duration as needed */
+}
+
+.marquee-item {
+  margin-right: 20px; /* Adjust spacing between images */
+}
+
+@keyframes marquee-animation {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Buttons */
+
+.bn53 {
+  border: 0.5px solid #d0d3d9;
+  box-shadow: #222;
+
+  padding: 7px;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  animation: bn53bounce 4s infinite;
+  cursor: pointer;
+}
+
+@keyframes bn53bounce {
+  5%,
+  50% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1);
+  }
+
+  15% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1) rotate(-5deg);
+  }
+
+  25% {
+    transform: scale(1) rotate(5deg);
+  }
+
+  30% {
+    transform: scale(1) rotate(-3deg);
+  }
+
+  35% {
+    transform: scale(1) rotate(2deg);
+  }
+
+  40% {
+    transform: scale(1) rotate(0);
+  }
+}

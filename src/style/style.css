@@ -1,0 +1,196 @@
+/* Custom CSS for marquee effect */
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee {
+  display: flex;
+  animation: marquee-animation 20s linear infinite; /* Adjust duration as needed */
+}
+
+.marquee-item {
+  margin-right: 20px; /* Adjust spacing between images */
+}
+
+@keyframes marquee-animation {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* custom-slide-content */
+.custom-slide-content {
+  margin: 0 10px; /* Add margin to the slide content */
+}
+
+/* Change arrow color */
+.slick-prev,
+.slick-next {
+  color: #fec408; /* Set the color of the arrows */
+}
+
+/* Alternatively, you can use SVG-based arrows and style them with CSS */
+/* For example, if you're using font awesome icons */
+.slick-prev:before,
+.slick-next:before {
+  color: #fec408; /* Set the color of the arrow icons */
+}
+
+/* button */
+.bn632-hover {
+  width: 160px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  margin: 20px;
+  height: 47px;
+  text-align: center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 20px;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.bn632-hover:hover {
+  background-position: 100% 0;
+
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.bn632-hover:focus {
+  outline: none;
+}
+
+.bn632-hover.bn23 {
+  background-image: linear-gradient(
+    to right,
+
+    #f7a21c,
+    #fcee21,
+    #666666,
+    #d9e021
+  );
+  box-shadow: 0 4px 15px 0 rgba(83, 176, 57, 0.75);
+}
+
+/* Read More button */
+
+.btn41-43 {
+  padding: 10px 25px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  outline: none !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.btn-42 {
+  border: 2px solid #666666;
+  background-color: #666666;
+  border-radius: 20px;
+  z-index: 1;
+  color: white;
+}
+
+.btn-42:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background: rgb(255, 255, 255);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-42:hover {
+  color: rgb(0, 0, 0);
+}
+
+.btn-42:hover:after {
+  top: 0;
+  height: 100%;
+}
+
+.btn-42:active {
+  top: 2px;
+}
+
+/* text-animations */
+/* .text-animations {
+  animation: textOpenAnimation 1s forwards;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+@keyframes textOpenAnimation {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+} */
+
+/* text-animation  */
+.text-animation {
+  animation: textOpenAnimation 1s forwards;
+  transform-origin: center;
+  opacity: 0;
+}
+
+@keyframes textOpenAnimation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.typing-text {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.typing-text .text-wrapper {
+  animation: typingAnimation 2s steps(10, end) forwards,
+    leMagnify 2s ease-in-out;
+}
+
+@keyframes typingAnimation {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes leMagnify {
+  50% {
+    transform: scale(1.8);
+    letter-spacing: 26px;
+  }
+}
