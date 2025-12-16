@@ -87,7 +87,7 @@ export default function NotificationTable() {
               <td className="p-4 font-semibold">{item.type}</td>
               <Link to="/notifications/view-notification">
                 <td className="p-4">
-                  <button className="text-purple-600 hover:underline text-sm font-medium">
+                  <button className="text-purple-600 hover:underline text-base font-bold">
                     View details
                   </button>
                 </td>

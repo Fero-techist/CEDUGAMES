@@ -23,7 +23,7 @@ export default function NewNotificationForm() {
   const openModal = () => setNotificationModal(true);
 
   return (
-    <div className="w-full max-w-8xl mx-auto p-8">
+    <div className="w-full max-w-8xl mx-auto p-10">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">
         New Notifications
       </h1>
@@ -31,7 +31,9 @@ export default function NewNotificationForm() {
       {/* Form Container */}
       <div className="max-w-xl space-y-6">
         <div>
-          <label className="block text-gray-700 font-medium mb-1">Title</label>
+          <label className="block text-[#121217] text-base font-medium mb-1">
+            Title
+          </label>
           <input
             type="text"
             name="title"
@@ -43,7 +45,7 @@ export default function NewNotificationForm() {
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-1">
+          <label className="block text-[#121217] text-base font-medium mb-1">
             Message
           </label>
           <textarea
@@ -56,7 +58,7 @@ export default function NewNotificationForm() {
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-1">
+          <label className="block text-[#121217] text-base font-medium mb-1">
             Notification type
           </label>
           <input
@@ -69,7 +71,7 @@ export default function NewNotificationForm() {
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-1">
+          <label className="block text-[#121217] text-base font-medium mb-1">
             Target Audience
           </label>
           <input
@@ -82,7 +84,7 @@ export default function NewNotificationForm() {
         </div>
 
         <div>
-          <label className="block text-gray-700 font-medium mb-1">
+          <label className="block text-[#121217] text-base font-medium mb-1">
             Schedule
           </label>
           <input

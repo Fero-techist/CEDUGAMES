@@ -8,6 +8,7 @@ import BadgeTwo from "../../assets/badgeTwo.png";
 import BadgeTree from "../../assets/badgethree.png";
 import BadgeFour from "../../assets/badgefour.png";
 import BadgeFive from "../../assets/badgeFive.png";
+import { Link } from "react-router-dom";
 
 const UserDetails = ({ userId = 1 }) => {
   const [showAdjustModal, setShowAdjustModal] = useState(false);
@@ -237,12 +238,14 @@ const UserDetails = ({ userId = 1 }) => {
 
       {/* Adjust Leaderboard Button */}
       <div className="flex justify-end">
-        <button
-          onClick={() => setShowAdjustModal(true)}
-          className="px-6 py-2 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-700 transition"
-        >
-          Adjust Leaderboard
-        </button>
+        <Link to="/settings">
+          <button
+            onClick={() => setShowAdjustModal(true)}
+            className="px-6 py-2 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-700 transition"
+          >
+            Adjust Leaderboard
+          </button>
+        </Link>
       </div>
     </div>
   );

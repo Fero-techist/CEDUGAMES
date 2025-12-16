@@ -25,7 +25,7 @@ export default function AddQuestion() {
   };
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-8 max-w-7xl mx-auto bg-gray-50 min-h-screen">
       {/* PAGE TITLE */}
       <h1 className="text-3xl font-bold mb-8 text-gray-900">
         Add New Question
@@ -45,7 +45,6 @@ export default function AddQuestion() {
         />
       </div>
 
-      {/* Options */}
       <div className=" flex items-center gap-4 ">
         <label className="block text-gray-700 font-medium mb-2">Options</label>
         <div className="grid grid-cols-4 gap-4 mb-6">
@@ -69,7 +68,6 @@ export default function AddQuestion() {
         </div>
       </div>
 
-      {/* Correct Answer */}
       <div className="mb-8">
         <label className="block text-gray-700 font-medium mb-2">
           Correct Answer

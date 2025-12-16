@@ -42,7 +42,7 @@ const Sidebar = ({ children, onSelectPage }) => {
       </button>
       <div className="nav">
         <div
-          className={`fixed w-52 z-10 h-full bg-gradient-to-br  from-[#9B5DE5] to-[#56347F] shadow-lg flex flex-col  transition-transform duration-300 ${
+          className={`fixed w-56 z-10 h-full bg-gradient-to-br  from-[#9B5DE5] to-[#56347F] shadow-lg flex flex-col  transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full w-0"
           } md:translate-x-0 p-5`}
         >
@@ -69,7 +69,7 @@ const Sidebar = ({ children, onSelectPage }) => {
               <Link
                 key={to}
                 to={to}
-                className={`block relative px-2  py-2 rounded text-sm hover:bg-[#F8F8F8] mb-2 ${
+                className={`block relative px-2  py-2 rounded text-sm hover:bg-[#F8F8F8] mb-4 ${
                   location.pathname === to
                     ? "bg-purple-200 text-purple-600  active-link"
                     : "text-white hover:text-[#6a0dad]"

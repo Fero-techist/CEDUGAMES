@@ -9,7 +9,7 @@ const Table = ({ columns, data, rowKey = "id" }) => {
             {columns.map((col) => (
               <th
                 key={col.accessor}
-                className="text-left py-3 px-4 font-semibold text-gray-700 text-sm"
+                className="text-left py-3 px-4 font-semibold text-gray-700 text-base"
               >
                 {col.label}
               </th>
@@ -26,7 +26,7 @@ const Table = ({ columns, data, rowKey = "id" }) => {
               {columns.map((col) => (
                 <td
                   key={col.accessor}
-                  className="py-3 px-4 text-sm text-[#61708A  ]"
+                  className="py-3 px-4 text-base text-[#61708A  ]"
                 >
                   {col.render
                     ? col.render(row[col.accessor], row)

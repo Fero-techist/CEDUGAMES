@@ -63,7 +63,6 @@ const UserProfile = () => {
         Manage user details, activity, and game progress.
       </p>
 
-      {/* USER INFO CARD */}
       <div className="flex items-center justify-between mt-8">
         <div className="flex items-center gap-4">
           <div className="w-40 h-40">

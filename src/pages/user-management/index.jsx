@@ -92,7 +92,7 @@ const UserManagement = () => {
   ];
 
   return (
-    <div className="px-6 space-y-4">
+    <div className="px-8 space-y-4">
       <StatsCard data={userManagementStats} />
       <DataTable
         data={users}

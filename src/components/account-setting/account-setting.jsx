@@ -20,13 +20,6 @@ const AccountSettings = () => {
       {/* Profile Picture Upload */}
       <div className="mt-6">
         <p className="font-semibold">Your Profile Picture</p>
-        {/* <div className="mt-2 w-32 h-32 border-dashed border-2 rounded-md flex items-center justify-center text-center text-sm text-purple-700 cursor-pointer">
-          <span>
-            Upload your
-            <br />
-            photo
-          </span>
-        </div> */}
 
         <div className=" border-2 grid justify-center items-center w-[130px] h-[130px] bg-[#E9E0EC] border-dotted rounded-[18px]">
           <div className="">

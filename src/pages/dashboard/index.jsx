@@ -38,7 +38,7 @@ const Index = () => {
     },
   ];
   return (
-    <div className="lg:px-6">
+    <div className="lg:px-8">
       <div className="space-y-6">
         <StatsCards data={stats} />
 

@@ -92,6 +92,22 @@ export default function CoinManagement() {
       description: "Purchase of 750 coins",
       color: "bg-purple-100 text-purple-600",
     },
+    {
+      user: "Mia Harrison",
+      type: "Deduction",
+      amount: "-300",
+      date: "2024-07-18",
+      description: "Game play deduction",
+      color: "bg-red-100 text-red-600",
+    },
+    {
+      user: "Aiden Bennett",
+      type: "Purchase",
+      amount: "+750",
+      date: "2024-07-17",
+      description: "Purchase of 750 coins",
+      color: "bg-purple-100 text-purple-600",
+    },
   ];
   const [form, setForm] = useState({
     activity: "",
@@ -105,7 +121,7 @@ export default function CoinManagement() {
     frequency: "",
   });
   const [page, setPage] = useState(1);
-  const rowsPerPage = 8;
+  const rowsPerPage = 10;
 
   const totalPages = Math.ceil(transactions.length / rowsPerPage);
 
@@ -231,24 +247,6 @@ export default function CoinManagement() {
             </button>
           ))}
         </div>
-
-        {/* {activeTab === "packages" && (
-          <div>
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold">Coin Packages</h2>
-              <Link to="/create-coin">
-                <button className="bg-purple-600 text-white font-bold px-4 py-2 rounded-xl text-sm">
-                  Create New Package
-                </button>
-              </Link>
-            </div>
-
-            <Table
-              columns={columns}
-              data={coinPackages}
-            />
-          </div>
-        )} */}
 
         {activeTab === "packages" && (
           <div>
@@ -388,7 +386,7 @@ export default function CoinManagement() {
                       {/* TYPE BADGE */}
                       <td className="p-4">
                         <span
-                          className={`px-4 py-1 rounded-lg text-xs font-medium ${row.color}`}
+                          className={`px-4 py-2 rounded-xl text-xs font-medium ${row.color}`}
                         >
                           {row.type}
                         </span>
@@ -441,21 +439,6 @@ export default function CoinManagement() {
                 </button>
               </div>
             </div>
-
-            {/* <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
-                <span>Showing 1-8 of 72 transactions</span>
-                <div className="flex space-x-2">
-                  <button className="px-3 py-1 border rounded-lg">
-                    Previous
-                  </button>
-                  <button className="px-3 py-1 bg-purple-600 text-white rounded-lg">
-                    1
-                  </button>
-                  <button className="px-3 py-1 border rounded-lg">2</button>
-                  <button className="px-3 py-1 border rounded-lg">3</button>
-                  <button className="px-3 py-1 border rounded-lg">Next</button>
-                </div>
-              </div> */}
           </div>
         )}
 
