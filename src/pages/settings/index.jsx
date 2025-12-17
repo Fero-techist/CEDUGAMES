@@ -264,12 +264,10 @@ export default function AccountProfile() {
         <div>
           <div className="min-h-screen px-6 py-10">
             <div className="max-w-xl">
-              {/* Title */}
               <h2 className="mb-8 text-2xl font-bold text-gray-900">
                 Leaderboard Settings
               </h2>
 
-              {/* Number of players */}
               <div className="mb-6">
                 <label className="mb-2 block text-base font-semibold text-gray-900">
                   Number of players to display
@@ -280,7 +278,6 @@ export default function AccountProfile() {
                 />
               </div>
 
-              {/* Ranking Criteria */}
               <div className="mb-6">
                 <label className="mb-2 block text-base font-semibold text-gray-900">
                   Ranking Criteria
@@ -291,7 +288,6 @@ export default function AccountProfile() {
                 />
               </div>
 
-              {/* Ranking Points */}
               <div className="mb-6">
                 <label className="mb-2 block text-base font-semibold text-gray-900">
                   Ranking Points
@@ -302,7 +298,6 @@ export default function AccountProfile() {
                 />
               </div>
 
-              {/* Description */}
               <div className="mb-8">
                 <label className="mb-2 block text-base font-semibold text-gray-900">
                   Leaderboard Ranking Description

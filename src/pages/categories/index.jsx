@@ -13,8 +13,9 @@ const ageGroups = [
   {
     id: 1,
     title: "Age 3–5: Little Explorers",
+    subtitle: "Learn through fun and play!",
     description:
-      "Learn through fun and play! Discover colors, shapes, animals, and numbers with simple games that make learning exciting and easy to understand.",
+      "Discover colors, shapes, animals, and numbers with simple games that make learning exciting and easy to understand.",
     image: Age,
     bgImage: bg,
     bg: "bg-[#EBDFFA4D]",
@@ -23,8 +24,9 @@ const ageGroups = [
   {
     id: 2,
     title: "Ages 6–8: Young Thinkers",
+    subtitle: "Solve, build, and explore!",
     description:
-      "Solve, build, and explore! Play games that boost your creativity, problem-solving, and memory. Learn new words, math tricks, and fun science facts!",
+      "Play games that boost your creativity, problem-solving, and memory. Learn new words, math tricks, and fun science facts!",
     image: AgeOne,
     bgImage: bgOne,
     bg: "bg-[#FFECD24D]",
@@ -33,8 +35,9 @@ const ageGroups = [
   {
     id: 3,
     title: "Ages 9–11: Smart Adventurers",
+    subtitle: "Challenge your mind!",
     description:
-      "Challenge your mind! Dive into brain games, quizzes, and creative missions that test your logic, teamwork, and curiosity about the world.",
+      " Dive into brain games, quizzes, and creative missions that test your logic, teamwork, and curiosity about the world.",
     image: Age,
     bgImage: bgTwo,
     bg: "bg-[#DCEEF84D]",
@@ -56,7 +59,6 @@ export default function AgeGroups() {
 
   return (
     <div className="w-full min-h-screen max-w-7xl mx-auto">
-      {/* Heading and Add Button */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-gray-900">Age Groups</h2>
         <Link to="/categories/add-age-group">
@@ -65,62 +67,68 @@ export default function AgeGroups() {
           </button>
         </Link>
       </div>
+      <Link to="/categories/age-categories">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {ageGroups.map((group) => (
+            <div
+              // key={group.id}
+              // className={`relative p-6 h-[300px] rounded-3xl border ${group.bg} ${group.border}`}
+              // style={{
+              //   clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 100%)",
+              // }}
+              key={group.id}
+              className="relative p-6 rounded-3xl text-gray-900"
+              style={{
+                backgroundImage: `url(${group.bgImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 100%)",
+              }}
+            >
+              <div className=" flex mt-20">
+                <img
+                  src={group.image}
+                  alt={group.title}
+                  className="w-32 h-32 object-contain mb-4"
+                />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {ageGroups.map((group) => (
-          <div
-            // key={group.id}
-            // className={`relative p-6 h-[300px] rounded-3xl border ${group.bg} ${group.border}`}
-            // style={{
-            //   clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 100%)",
-            // }}
-            key={group.id}
-            className="relative p-6 rounded-3xl text-gray-900"
-            style={{
-              backgroundImage: `url(${group.bgImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              clipPath: "polygon(0 10%, 100% 0, 100% 100%, 0 100%)",
-            }}
-          >
-            <div className=" flex mt-20">
-              <img
-                src={group.image}
-                alt={group.title}
-                className="w-32 h-32 object-contain mb-4"
-              />
+                <div>
+                  <h3 className="text-lg font-sans font-semibold text-gray-900 mb-1">
+                    {group.title}
+                  </h3>
 
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                  {group.title}
-                </h3>
+                  <h2 className=" text-base italic font-light font-sans mb-1">
+                    {group.subtitle}
+                  </h2>
 
-                <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  {group.description}
-                </p>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                    {group.description}
+                  </p>
+                </div>
+              </div>
+
+              {/* Edit / Delete */}
+              <div className="flex gap-3 text-sm font-medium">
+                <Link to="/categories/edit-age-group">
+                  <button className="text-purple-600 hover:underline flex items-center gap-1">
+                    <Pencil size={14} /> Edit
+                  </button>
+                </Link>
+
+                <span className="text-gray-400">|</span>
+
+                <button
+                  onClick={DeleteModal}
+                  className="text-red-500 hover:underline flex items-center gap-1"
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
               </div>
             </div>
+          ))}
+        </div>
+      </Link>
 
-            {/* Edit / Delete */}
-            <div className="flex gap-3 text-sm font-medium">
-              <Link to="/categories/edit-age-group">
-                <button className="text-purple-600 hover:underline flex items-center gap-1">
-                  <Pencil size={14} /> Edit
-                </button>
-              </Link>
-
-              <span className="text-gray-400">|</span>
-
-              <button
-                onClick={DeleteModal}
-                className="text-red-500 hover:underline flex items-center gap-1"
-              >
-                <Trash2 size={14} /> Delete
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
       <DeleteUser
         isOpen={deleteModal}
         onClose={() => setDeleteModal(false)}

@@ -22,6 +22,9 @@ const PageRender = () => {
     "upload-files",
     "edit-age-group",
     "add-age-group",
+    "age-categories",
+    "view-categories",
+    "edit-categories",
     "new-notification",
     "view-notification",
   ];

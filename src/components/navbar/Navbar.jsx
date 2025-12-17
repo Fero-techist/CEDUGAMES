@@ -1,7 +1,7 @@
 import { useState } from "react";
 import bell from "../../assets/bell.png";
 import { MdSearch } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navImg from "../../assets/admin.png";
 import { useLocation } from "react-router-dom";
 
@@ -43,17 +43,19 @@ const Navbar = ({ title }) => {
           />
         </div>
 
-        <div className="flex items-center space-x-2">
-          <img
-            src={navImg}
-            alt=""
-            className="w-9 h-9 rounded-full object-cover"
-          />
-          <div>
-            <p className="text-sm font-medium">Admin User</p>
-            <p className="text-xs text-gray-400">Administrator</p>
+        <Link to="/settings">
+          <div className="flex items-center space-x-2">
+            <img
+              src={navImg}
+              alt=""
+              className="w-9 h-9 rounded-full object-cover"
+            />
+            <div>
+              <p className="text-sm font-medium">Admin User</p>
+              <p className="text-xs text-gray-400">Administrator</p>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     </div>
   );
