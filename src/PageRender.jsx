@@ -23,6 +23,7 @@ const PageRender = () => {
     "edit-age-group",
     "add-age-group",
     "age-categories",
+    "add-level",
     "view-categories",
     "edit-categories",
     "new-notification",

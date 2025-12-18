@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Paperclip } from "lucide-react";
 import { Link } from "react-router-dom";
+import CTA from "../../assets/cta.png";
+import { SuccessModal } from "../../components/modal";
+import { FullBTN } from "../../components/button.jsx/Btn";
 
 export default function EditCategories() {
   const [categoryName, setCategoryName] = useState("");
@@ -14,8 +17,10 @@ export default function EditCategories() {
 
   //   const [correctAnswer, setCorrectAnswer] = useState("");
   const [ageGroups, setAgeGroups] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [levels, setLevels] = useState([]);
+  const [saveCategory, setSaveCategory] = useState(false);
+
+  //   const [categories, setCategories] = useState([]);
+  //   const [levels, setLevels] = useState([]);
 
   const toggle = (setState, state, value) => {
     setState(
@@ -25,36 +30,39 @@ export default function EditCategories() {
     );
   };
 
+  const category = () => setSaveCategory(true);
+
   return (
-    <div className="p-8 max-w-8xl mx-auto bg-gray-50 min-h-screen">
-      <h1 className="text-2xl font-bold mb-8 text-gray-900">Edit category</h1>
+    <div>
+      <div className="p-8 max-w-8xl mx-auto bg-gray-50 min-h-screen">
+        <h1 className="text-2xl font-bold mb-8 text-gray-900">Edit category</h1>
 
-      <div className="mb-6">
-        <label className="block text-gray-700 font-medium mb-2">
-          Category Name
-        </label>
-        <input
-          type="text"
-          placeholder="Enter category name"
-          className="w-1/3 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
-          value={categoryName}
-          onChange={(e) => setCategoryName(e.target.value)}
-        />
-      </div>
+        <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-2">
+            Category Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter category name"
+            className="w-1/3 px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+          />
+        </div>
 
-      <div className="mb-6">
-        <label className="block text-gray-700 font-medium mb-2">
-          Description
-        </label>
-        <input
-          type="text"
-          className="w-1/3 min-h-[144px] px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
-          value={categoryDescription}
-          onChange={(e) => setCategoryDescription(e.target.value)}
-        />
-      </div>
+        <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-2">
+            Description
+          </label>
+          <input
+            type="text"
+            className="w-1/3 min-h-[144px] px-4 py-3 border rounded-xl focus:ring-2 focus:ring-purple-500 outline-none"
+            value={categoryDescription}
+            onChange={(e) => setCategoryDescription(e.target.value)}
+          />
+        </div>
 
-      {/* <div className=" flex items-center gap-4 ">
+        {/* <div className=" flex items-center gap-4 ">
         <label className="block text-gray-700 font-medium mb-2">Options</label>
         <div className="grid grid-cols-4 gap-4 mb-6">
           {["A", "B", "C", "D"].map((opt) => (
@@ -77,8 +85,8 @@ export default function EditCategories() {
         </div>
       </div> */}
 
-      {/* Correct Answer */}
-      {/* <div className="mb-8">
+        {/* Correct Answer */}
+        {/* <div className="mb-8">
         <label className="block text-gray-700 font-medium mb-2">
           Correct Answer
         </label>
@@ -95,40 +103,62 @@ export default function EditCategories() {
         </select>
       </div> */}
 
-      <div className="mb-8">
-        <h3 className="text-gray-700 font-medium mb-3">Game Levels</h3>
-        <div className="grid  gap-y-4">
-          {[
-            { id: "beginner", label: "Beginner" },
-            { id: "intermediate", label: "Intermediate" },
-            { id: "advanced", label: "Advanced" },
-          ].map((age) => (
-            <label
-              key={age.id}
-              className="flex items-center gap-3"
-            >
-              <input
-                type="checkbox"
-                checked={ageGroups.includes(age.id)}
-                onChange={() => toggle(setAgeGroups, ageGroups, age.id)}
-                // className="w-4 h-4 rounded focus:ring-purple-500"
-                className="w-5 h-5 rounded appearance-none border border-gray-400 
+        <div className="mb-8">
+          <h3 className="text-gray-700 font-medium mb-3">Game Levels</h3>
+          <div className="grid  gap-y-4">
+            {[
+              { id: "beginner", label: "Beginner" },
+              { id: "intermediate", label: "Intermediate" },
+              { id: "advanced", label: "Advanced" },
+            ].map((age) => (
+              <label
+                key={age.id}
+                className="flex items-center gap-3"
+              >
+                <input
+                  type="checkbox"
+                  checked={ageGroups.includes(age.id)}
+                  onChange={() => toggle(setAgeGroups, ageGroups, age.id)}
+                  // className="w-4 h-4 rounded focus:ring-purple-500"
+                  className="w-5 h-5 rounded appearance-none border border-gray-400 
              checked:bg-purple-600 checked:border-purple-600 
              focus:ring-purple-500 cursor-pointer"
-              />
-              <span className="text-gray-800">{age.label}</span>
-            </label>
-          ))}
+                />
+                <span className="text-gray-800">{age.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <button
+            onClick={category}
+            className="bg-purple-500 text-white px-6 py-3 rounded-xl hover:bg-purple-600 transition"
+          >
+            Save Category
+          </button>
         </div>
       </div>
 
-      <Link to="/content/upload-files">
-        <div className="flex justify-end">
-          <button className="bg-purple-500 text-white px-6 py-3 rounded-xl hover:bg-purple-600 transition">
-            Continue
-          </button>
+      <SuccessModal
+        isOpen={saveCategory}
+        onClose={() => setSaveCategory(false)}
+      >
+        <div className="text-center ">
+          <img
+            src={CTA}
+            alt="cta"
+            className=" w-28 h-28 mx-auto"
+          />
+          <p className=" text-2xl font-bold mb-4">Action Completed!</p>
+          <p className=" text-base mb-4">
+            <span className=" font-medium font-sans ">Category "Name"</span> has
+            been updated successfully
+          </p>
+
+          <FullBTN onClick={() => setSaveCategory(false)}>Okay</FullBTN>
         </div>
-      </Link>
+      </SuccessModal>
     </div>
   );
 }

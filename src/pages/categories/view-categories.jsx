@@ -3,6 +3,7 @@ import { Plus } from "lucide-react";
 import GameBoard from "../../assets/game-card.png";
 import bgImage from "../../assets/levelImae.png";
 import levelImage from "../../assets/levelImage.png";
+import { Link } from "react-router-dom";
 
 const levels = Array.from({ length: 6 }).map((_, i) => ({
   id: i + 1,
@@ -21,9 +22,12 @@ export default function GamesCategoryDetails() {
         <h1 className="text-2xl font-bold text-gray-900">
           Games Categories Details
         </h1>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold bg-purple-600 text-white text-base  hover:bg-purple-700 transition">
-          Add Level
-        </button>
+
+        <Link to="/categories/add-level">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold bg-purple-600 text-white text-base  hover:bg-purple-700 transition">
+            Add Level
+          </button>
+        </Link>
       </div>
 
       <div className="mb-8 rounded-2xl border-2 border-[#EBDFFA80] bg-white p-5 flex items-start gap-4 shadow-lg">
@@ -70,9 +74,11 @@ export default function GamesCategoryDetails() {
                 <p className="text-sm italic  mb-2">{level.subtitle}</p>
                 <p className="text-sm s mb-6">{level.description}</p>
 
-                <button className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm font-medium hover:bg-purple-700 transition">
-                  Add Question
-                </button>
+                <Link to="/content/add-question">
+                  <button className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm font-medium hover:bg-purple-700 transition">
+                    Add Question
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -521,7 +521,11 @@ export default function AccountProfile() {
                   </p>
 
                   <div className=" mx-auto justify-center flex items-center">
-                    <FullBTN>Okay</FullBTN>
+                    <FullBTN
+                      onClick={() => setOpenSuccessfulDeleteModal(false)}
+                    >
+                      Okay
+                    </FullBTN>
                   </div>
                 </div>
               </SuccessfulDelete>
@@ -583,11 +587,9 @@ export default function AccountProfile() {
                       alt="cta"
                       className=" w-28 h-28 mx-auto"
                     />
-                    <p className=" text-2xl font-bold mb-4">
-                      Password Updated!
-                    </p>
+                    <p className=" text-2xl font-bold mb-4">Action Success!</p>
                     <p className=" text-lg mb-4">
-                      Your Password have been added successfully
+                      New badge has been added successfully
                     </p>
 
                     <FullBTN onClick={() => setUpdatePassword(false)}>
