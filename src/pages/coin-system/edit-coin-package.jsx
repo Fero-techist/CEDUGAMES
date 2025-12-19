@@ -127,7 +127,7 @@ import { FullBTN } from "../../components/button.jsx/Btn";
 
 // export default CreateCoinPackage;
 
-const CreateCoinPackage = ({ onBack }) => {
+const EditCoinPage = ({ onBack }) => {
   const [formData, setFormData] = useState({
     packageName: "",
     coins: "",
@@ -153,7 +153,7 @@ const CreateCoinPackage = ({ onBack }) => {
   return (
     <div>
       <div className="max-w-7xl p-6">
-        <h2 className="text-2xl font-bold mb-8">Create Coin Package</h2>
+        <h2 className="text-2xl font-bold mb-8">Edit Coin Package</h2>
 
         <form
           onSubmit={handleSubmit}
@@ -217,7 +217,7 @@ const CreateCoinPackage = ({ onBack }) => {
           </div>
 
           {/* Availability */}
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium mb-3">
               Availability
             </label>
@@ -239,6 +239,52 @@ const CreateCoinPackage = ({ onBack }) => {
                 className="h-5 w-5 accent-purple-600"
               />
             </div>
+          </div> */}
+
+          <div>
+            <label className="block text-sm font-medium mb-3">
+              Availability
+            </label>
+
+            <div
+              onClick={() =>
+                setFormData((prev) => ({
+                  ...prev,
+                  availability:
+                    prev.availability === "available"
+                      ? "unavailable"
+                      : "available",
+                }))
+              }
+              className={`flex items-center justify-between rounded-xl p-4 cursor-pointer border transition
+      ${
+        formData.availability === "available"
+          ? "border-purple-600 bg-purple-50"
+          : "border-gray-300"
+      }
+    `}
+            >
+              <div>
+                <p className="font-medium">Available</p>
+                <p className="text-sm text-gray-500">
+                  This package will be available for purchase.
+                </p>
+              </div>
+
+              <div
+                className={`h-5 w-5 rounded-full border-2 flex items-center justify-center
+        ${
+          formData.availability === "available"
+            ? "border-purple-600"
+            : "border-gray-400"
+        }
+      `}
+              >
+                {formData.availability === "available" && (
+                  <div className="h-2.5 w-2.5 bg-purple-600 rounded-full" />
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Submit */}
@@ -256,7 +302,7 @@ const CreateCoinPackage = ({ onBack }) => {
               type="submit"
               className="bg-purple-600 text-white px-6 py-3 rounded-xl  font-semibold hover:bg-purple-700 transition"
             >
-              Create Package
+              Update Package
             </button>
           </div>
         </form>
@@ -285,4 +331,4 @@ const CreateCoinPackage = ({ onBack }) => {
   );
 };
 
-export default CreateCoinPackage;
+export default EditCoinPage;

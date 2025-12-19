@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Table from "../../components/table";
 import CreateCoinPackage from "./create-coin";
+import EditCoinPage from "./edit-coin-package";
 import CTA from "../../assets/cta.png";
 import { SuccessModal } from "../../components/modal";
 import { FullBTN } from "../../components/button.jsx/Btn";
@@ -270,7 +271,7 @@ export default function CoinManagement() {
                 />
               </>
             ) : editReward ? (
-              <CreateCoinPackage
+              <EditCoinPage
                 data={editReward}
                 onBack={() => setEditReward(null)}
               />
@@ -386,7 +387,7 @@ export default function CoinManagement() {
                       {/* TYPE BADGE */}
                       <td className="p-4">
                         <span
-                          className={`px-4 py-2 rounded-xl text-xs font-medium ${row.color}`}
+                          className={`px-6 py-3 rounded-xl text-xs font-medium ${row.color}`}
                         >
                           {row.type}
                         </span>
@@ -412,7 +413,7 @@ export default function CoinManagement() {
               <div className="flex items-center space-x-2">
                 <button
                   onClick={() => page > 1 && setPage(page - 1)}
-                  className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+                  className="px-4 py-2 border rounded-xl hover:bg-gray-100"
                 >
                   Previous
                 </button>
@@ -421,7 +422,7 @@ export default function CoinManagement() {
                   <button
                     key={num}
                     onClick={() => setPage(num)}
-                    className={`px-4 py-2 border rounded-lg ${
+                    className={`px-4 py-2 border rounded-xl ${
                       page === num
                         ? "bg-purple-600 text-white"
                         : "hover:bg-gray-100"
@@ -433,7 +434,7 @@ export default function CoinManagement() {
 
                 <button
                   onClick={() => page < totalPages && setPage(page + 1)}
-                  className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+                  className="px-4 py-2 border rounded-xl hover:bg-gray-100"
                 >
                   Next
                 </button>
