@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Plus } from "lucide-react";
 import CTA from "../../assets/cta.png";
 import { Link } from "react-router-dom";
 import { DeleteUser, SuccessfulDelete } from "../../components/modal";

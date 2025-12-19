@@ -1,5 +1,5 @@
 import React from "react";
-import { Plus } from "lucide-react";
+
 import GameBoard from "../../assets/game-card.png";
 import bgImage from "../../assets/levelImae.png";
 import levelImage from "../../assets/levelImage.png";
