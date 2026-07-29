@@ -7,6 +7,7 @@ export const PERMISSIONS = [
   { key: "content", label: "Content" },
   { key: "leaderboard", label: "Leaderboard" },
   { key: "coin-system", label: "Coin System" },
+  { key: "daily-rewards", label: "Daily Rewards" },
   { key: "categories", label: "Categories / Levels" },
   { key: "notifications", label: "Notifications" },
   { key: "settings", label: "Settings" },

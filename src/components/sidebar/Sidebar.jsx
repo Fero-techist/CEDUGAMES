@@ -30,6 +30,7 @@ const Sidebar = ({ children, onSelectPage }) => {
     { to: "/content", label: "Content", icon: <FaBook /> },
     { to: "/leaderboard", label: "Leaderboard", icon: <FaChartLine /> },
     { to: "/coin-system", label: "Coin System", icon: <FaSchool /> },
+    { to: "/daily-rewards", label: "Daily Rewards", icon: <FaSchool /> },
     { to: "/categories", label: "Categories/Levels", icon: <FaTrophy /> },
     { to: "/notifications", label: "Notifications", icon: <FaChartLine /> },
     { to: "/settings", label: "Settings", icon: <FaSchool /> },
