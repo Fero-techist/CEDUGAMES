@@ -8,6 +8,7 @@ import {
   AlignRight,
   Bold,
   Check,
+  ChevronDown,
   FileText,
   Image,
   Italic,
@@ -353,5 +354,17 @@ function existingAttachment(item) {
 }
 
 function SelectField({ label, value, onChange, options = [], placeholder, disabled, error }) {
-  return <div><label className="text-sm font-semibold text-slate-700">{label} {placeholder && <span className="text-red-500">*</span>}</label><select value={value} disabled={disabled} onChange={(event) => onChange(event.target.value)} className={`${fieldClass} appearance-none disabled:cursor-not-allowed disabled:bg-slate-100 ${error ? "border-red-400" : ""}`}><option value="">{placeholder || `Select ${label.toLowerCase()}`}</option>{options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>{error && <p className="mt-1 text-xs text-red-500">{error}</p>}</div>;
+  const prompt = placeholder || `Select ${label.toLowerCase()}`;
+  return <div>
+    <label className="text-sm font-semibold text-slate-700">{label} {placeholder && <span className="text-red-500">*</span>}</label>
+    <div className="relative mt-2">
+      <select value={value} disabled={disabled} onChange={(event) => onChange(event.target.value)} className={`w-full cursor-pointer appearance-none rounded-xl border bg-white py-3 pl-4 pr-11 text-sm font-semibold outline-none transition hover:border-purple-300 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 ${value ? "text-slate-800" : "text-slate-500"} ${error ? "border-red-400" : "border-slate-300"}`}>
+        <option value="">{prompt}</option>
+        {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+      </select>
+      <span className={`pointer-events-none absolute inset-y-0 right-3 flex items-center border-l pl-3 ${disabled ? "border-slate-200 text-slate-300" : "border-slate-200 text-purple-600"}`}><ChevronDown size={18}/></span>
+    </div>
+    {disabled && <p className="mt-1.5 text-xs text-slate-400">{label === "Category" ? "Choose an age group to unlock categories." : label === "Level" ? "Choose a category to unlock levels." : "This selection is currently unavailable."}</p>}
+    {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+  </div>;
 }

@@ -11,6 +11,7 @@ export const PERMISSIONS = [
   { key: "categories", label: "Categories / Levels" },
   { key: "notifications", label: "Notifications" },
   { key: "settings", label: "Settings" },
+  { key: "admins", label: "Admin Management" },
 ];
 
 const SUPER_ADMIN = {
