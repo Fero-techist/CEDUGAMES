@@ -1,160 +1,66 @@
-/* eslint-disable no-undef */
-import { createElement, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-
-// Import useAuthStore hook from the correct location
+import { lazy, Suspense, useEffect } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useAuthStore from "./data/Stores/Authstore";
 
-const PageRender = () => {
-  // Retrieve page, id, and step from URL params
-  const { page, id, step } = useParams();
-  const escape2 = [
-    "institutionPage",
-    "instructorPage",
-    "about",
-    "our-team",
-    "contact-us",
-    "sign-up",
-    "leaderboard-details",
-    "manage-user",
-    "add-question",
-    "edit-question",
-    "upload-files",
-    "edit-age-group",
-    "add-age-group",
-    "age-categories",
-    "add-level",
-    "view-categories",
-    "level-questions",
-    "edit-categories",
-    "new-notification",
-    "view-notification",
-  ];
-  const navigate = useNavigate();
-
-  // Use the useAuthStore hook to access authentication-related state
-  const { auth, errors, clearErrors, isAuth } = useAuthStore();
-
-  // Define generatePage function inside PageRender
-  const generatePage = (pageName, folder) => {
-    const component = () => require(`./${folder}/${pageName}`).default;
-    try {
-      return createElement(component());
-    } catch (error) {
-      console.error("Error loading page:", error); // Log the error for debugging
-      // Display an error message or redirect to an error page
-      // You can return an ErrorPage component here if needed
-      return null;
-    }
-  };
-
-  useEffect(() => {
-    // Redirect to the homepage if the user is not authenticated
-    if (auth?.isAuth) {
-      if (errors?.errorText) {
-        if (page !== "login" && page !== "register") {
-          navigate("/");
-        }
-        clearErrors();
-      }
-    }
-    // Redirect to the homepage if the user is authenticated and tries to access login or register pages
-    if (auth?.isAuth) {
-      if (page === "login" || page === "register") {
-        navigate("/");
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, auth?.isAuth, navigate, errors?.errorText]);
-
-  // Construct the page name based on URL params and available escape routes
-  let pageName = "";
-  if (step) {
-    pageName = `${page}/${id}/${"[id]"}`;
-  } else if (id) {
-    if (
-      (page === "home" && escape2.includes(id)) ||
-      (page === "dashboard" && escape2.includes(id)) ||
-      (page === "leaderboard" && escape2.includes(id)) ||
-      (page === "user-management" && escape2.includes(id)) ||
-      (page === "content" && escape2.includes(id)) ||
-      (page === "coin-system" && escape2.includes(id)) ||
-      (page === "categories" && escape2.includes(id)) ||
-      (page === "notifications" && escape2.includes(id))
-    ) {
-      pageName = `${page}/${id}`;
-    } else {
-      pageName = `${page}/${"[id]"}`;
-    }
-  } else {
-    pageName = `${page}`;
-  }
-  console.log({ isAuth });
-
-  // Call generatePage with the constructed pageName and determine the folder based on user authentication status
-  return generatePage(
-    pageName,
-    isAuth || page !== "login" ? "pages" : "screens"
-  );
+const pages = {
+  dashboard: lazy(() => import("./pages/dashboard")),
+  "user-management": lazy(() => import("./pages/user-management")),
+  "user-management/manage-user": lazy(() => import("./pages/user-management/manage-user")),
+  content: lazy(() => import("./pages/content")),
+  "content/add-question": lazy(() => import("./pages/content/add-question")),
+  "content/edit-question": lazy(() => import("./pages/content/edit-question")),
+  "content/upload-files": lazy(() => import("./pages/content/upload-files")),
+  leaderboard: lazy(() => import("./pages/leaderboard")),
+  "leaderboard/leaderboard-details": lazy(() => import("./pages/leaderboard/leaderboard-details")),
+  "coin-system": lazy(() => import("./pages/coin-system")),
+  "coin-system/create-coin": lazy(() => import("./pages/coin-system/create-coin")),
+  "coin-system/edit-coin-package": lazy(() => import("./pages/coin-system/edit-coin-package")),
+  "coin-system/event-key-guide": lazy(() => import("./pages/coin-system/event-key-guide")),
+  "coin-system/life-settings": lazy(() => import("./pages/coin-system/life-settings")),
+  "daily-rewards": lazy(() => import("./pages/daily-rewards")),
+  categories: lazy(() => import("./pages/categories")),
+  "categories/add-age-group": lazy(() => import("./pages/categories/add-age-group")),
+  "categories/add-level": lazy(() => import("./pages/categories/add-level")),
+  "categories/age-categories": lazy(() => import("./pages/categories/age-categories")),
+  "categories/edit-age-group": lazy(() => import("./pages/categories/edit-age-group")),
+  "categories/edit-categories": lazy(() => import("./pages/categories/edit-categories")),
+  "categories/level-questions": lazy(() => import("./pages/categories/level-questions")),
+  "categories/view-categories": lazy(() => import("./pages/categories/view-categories")),
+  notifications: lazy(() => import("./pages/notifications")),
+  "notifications/new-notification": lazy(() => import("./pages/notifications/new-notification")),
+  "notifications/view-notification": lazy(() => import("./pages/notifications/view-notification")),
+  settings: lazy(() => import("./pages/settings")),
+  admins: lazy(() => import("./pages/admins")),
+  "log-out": lazy(() => import("./pages/log-out")),
 };
 
-export default PageRender;
+const PageLoader = () => (
+  <div className="grid min-h-[60vh] place-items-center" role="status" aria-live="polite">
+    <div className="h-10 w-10 animate-spin rounded-full border-4 border-purple-200 border-t-purple-600" />
+    <span className="sr-only">Loading page</span>
+  </div>
+);
 
-// /* eslint-disable no-undef */
-// import { createElement, useEffect } from "react";
-// import { useContext } from "react";
-// import { useParams, useNavigate } from "react-router-dom";
-// import useAuthStore from "./data/Stores/Authstore";
+export default function PageRender() {
+  const { page, id } = useParams();
+  const navigate = useNavigate();
+  const { auth, errors, clearErrors } = useAuthStore();
 
-// const generatePage = (pageName, folder) => {
-//   const component = () => require(`./${folder}/${pageName}`).default;
-//   try {
-//     return createElement(component());
-//   } catch (error) {
-//     // return <ErrorPage />;
-//   }
-// };
+  useEffect(() => {
+    if (auth?.isAuth && errors?.errorText) {
+      if (page !== "login" && page !== "register") navigate("/");
+      clearErrors();
+    }
+    if (auth?.isAuth && (page === "login" || page === "register")) navigate("/");
+  }, [auth?.isAuth, clearErrors, errors?.errorText, navigate, page]);
 
-// const PageRender = () => {
-//   const { page, id, step } = useParams();
-//   const escape2 = ["home", "about"],
-//     navigate = useNavigate();
+  const key = id ? `${page}/${id}` : page;
+  const Component = pages[key] || (page === "settings" && id ? lazy(() => import("./pages/settings/[id]")) : null);
+  if (!Component) return <Navigate to="/dashboard" replace />;
 
-//   useEffect(() => {
-//     if (!auth?.isAuth) {
-//       if (errors?.errorText) {
-//         if (page !== "login" && page !== "register") {
-//           navigate("/");
-//         }
-//         clearErrors();
-//       }
-//     }
-//     if (auth?.isAuth) {
-//       if (page === "login" || page === "register") {
-//         navigate("/");
-//       }
-//     }
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [page, auth?.isAuth, navigate, errors?.errorText]);
-
-//   // if (general?.isLoading && users.isLoading) return <Loader />;
-
-//   let pageName = "";
-//   if (step) {
-//     pageName = `${page}/${id}/${"[id]"}`;
-//   } else if (id) {
-//     if (
-//       (page === "home" && escape2.includes(id)) ||
-//       (page === "about" && escape2.includes(id))
-//     ) {
-//       pageName = `${page}/${id}`;
-//     } else {
-//       pageName = `${page}/${"[id]"}`;
-//     }
-//   } else {
-//     pageName = `${page}`;
-//   }
-//   return generatePage(pageName, isAuth ? "pages" : "screens");
-// };
-
-// export default PageRender;
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <Component />
+    </Suspense>
+  );
+}

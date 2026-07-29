@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Paperclip } from "lucide-react";
-import { Link } from "react-router-dom";
 import CTA from "../../assets/cta.png";
 import { SuccessModal } from "../../components/modal";
 import { FullBTN } from "../../components/button.jsx/Btn";

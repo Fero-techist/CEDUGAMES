@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Table from "../../components/table";
 import leaders from "../../assets/leaders.png";
 import BadgeOne from "../../assets/badgeOne.png";
@@ -11,8 +10,6 @@ import BadgeFive from "../../assets/badgeFive.png";
 import { Link } from "react-router-dom";
 
 const UserDetails = ({ userId = 1 }) => {
-  const [showAdjustModal, setShowAdjustModal] = useState(false);
-
   // Mock user data
   const user = {
     id: 1254605890,
@@ -240,7 +237,6 @@ const UserDetails = ({ userId = 1 }) => {
       <div className="flex justify-end">
         <Link to="/settings">
           <button
-            onClick={() => setShowAdjustModal(true)}
             className="px-6 py-2 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-700 transition"
           >
             Adjust Leaderboard
