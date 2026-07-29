@@ -16,6 +16,7 @@ import {
   Loader2,
   Music2,
   Paperclip,
+  Sparkles,
   Trash2,
   Underline,
   Video,
@@ -42,6 +43,7 @@ export default function AddQuestion() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const editId = searchParams.get("question");
+  const aiRequested = searchParams.get("ai") === "true";
   const [form, setForm] = useState({
     questionText: "",
     explanation: "",
@@ -63,6 +65,8 @@ export default function AddQuestion() {
   const [submitting, setSubmitting] = useState(false);
   const [loadingQuestion, setLoadingQuestion] = useState(Boolean(editId));
   const [removedMedia, setRemovedMedia] = useState([]);
+  const [aiGuidance, setAiGuidance] = useState("");
+  const [generating, setGenerating] = useState(false);
 
   const update = (key, value) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -149,6 +153,29 @@ export default function AddQuestion() {
     setErrors((current) => ({ ...current, [target === "question" ? "questionText" : "options"]: "" }));
   };
 
+  const generateWithAi = async () => {
+    if (!form.ageGroupId || !form.categoryId || !form.levelId) {
+      toast.info("Select the age group, category, and level before generating.");
+      return;
+    }
+    setGenerating(true);
+    try {
+      const { data } = await axios.post("/admin/questions/ai/generate", { ageGroupId: form.ageGroupId, categoryId: form.categoryId, levelId: form.levelId, count: 1, guidance: aiGuidance });
+      const draft = data.questions?.[0];
+      if (!draft) throw new Error("No draft was returned.");
+      setForm((current) => ({ ...current, questionText: draft.questionText, explanation: draft.explanation }));
+      setOptions(draft.options.map((option) => option.text));
+      setCorrectAnswer(draft.options.findIndex((option) => option.isCorrect));
+      setErrors({});
+      toast.success("AI draft generated. Review and edit it before saving.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message || "Question could not be generated.");
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   const submit = async (event) => {
     event.preventDefault();
     if (!validate()) return;
@@ -185,6 +212,18 @@ export default function AddQuestion() {
           title={editId ? "Edit Question" : "Add New Question"}
           description={editId ? "Update this question and save your changes." : "Build a complete, learner-ready question in one place."}
         />
+
+        {!editId && <section className={`mb-6 overflow-hidden rounded-2xl border shadow-sm ${aiRequested ? "border-purple-300 ring-4 ring-purple-100" : "border-purple-200"}`}>
+          <div className="flex flex-wrap items-center justify-between gap-4 bg-gradient-to-r from-purple-700 to-fuchsia-600 px-5 py-4 text-white">
+            <div className="flex items-center gap-3"><span className="grid h-11 w-11 place-items-center rounded-xl bg-white/15"><Sparkles size={22}/></span><div><h2 className="font-black">AI question assistant</h2><p className="text-sm text-purple-100">Select the learning placement, describe what to cover, then generate an editable draft.</p></div></div>
+            <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-black">OPTIONAL</span>
+          </div>
+          <div className="grid gap-4 bg-white p-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <label className="text-sm font-bold text-slate-700">What should this question cover? <span className="font-normal text-slate-400">(optional guidance)</span><textarea rows="2" maxLength="2000" value={aiGuidance} onChange={(event) => setAiGuidance(event.target.value)} placeholder="Example: Test adding two-digit numbers without carrying, using a friendly playground scenario." className={`${fieldClass} resize-none`}/></label>
+            <button type="button" disabled={generating} onClick={generateWithAi} className="flex h-fit items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-3.5 font-black text-white transition hover:bg-purple-700 disabled:opacity-50">{generating ? <Loader2 className="animate-spin" size={18}/> : <Sparkles size={18}/>} {generating ? "Generating…" : "Generate question"}</button>
+          </div>
+          {(!form.ageGroupId || !form.categoryId || !form.levelId) && <p className="border-t bg-amber-50 px-5 py-3 text-xs font-semibold text-amber-700">Complete the Age group, Category, and Level fields below before generating.</p>}
+        </section>}
 
         {loadingQuestion ? <div className="rounded-2xl bg-white p-20 text-center text-slate-500"><Loader2 className="mx-auto mb-3 animate-spin text-purple-600"/>Loading question...</div> : <>{Object.keys(errors).length > 0 && (
           <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">
