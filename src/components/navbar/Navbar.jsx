@@ -13,10 +13,10 @@ const Navbar = ({ title }) => {
   const roleLabel = role.replace(/\b\w/g, (letter) => letter.toUpperCase());
   const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase() || "A";
   return (
-    <div className="flex items-center mb-4 justify-between px-6 py-4 bg-white shadow-sm">
+    <div className="flex min-w-0 items-center mb-4 justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 bg-white shadow-sm">
       <h1 className="text-xl font-semibold">{title}</h1>
 
-      <div className="flex items-center space-x-4">
+      <div className="flex min-w-0 items-center space-x-2 sm:space-x-4">
         <Link to="/notifications" className="relative block w-8 h-8" aria-label="View notifications and activities">
           <img
             src={bell}
@@ -29,7 +29,7 @@ const Navbar = ({ title }) => {
             <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-purple-300 bg-purple-100 text-sm font-black text-purple-700">
               {initials}
             </span>
-            <div className="min-w-0">
+            <div className="hidden min-w-0 sm:block">
               <p className="max-w-40 truncate text-sm font-semibold text-slate-900">{name}</p>
               <p className="max-w-40 truncate text-xs capitalize text-gray-400" title={email || roleLabel}>{roleLabel}</p>
             </div>

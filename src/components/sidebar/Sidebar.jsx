@@ -127,7 +127,7 @@ const Sidebar = ({ children, onSelectPage }) => {
           </nav> */}
         </div>
         {isOpen && <button aria-label="Close navigation" className="fixed inset-0 z-30 bg-slate-950/40 md:hidden" onClick={() => setIsOpen(false)} />}
-        <main className="min-h-screen w-full overflow-x-hidden bg-[#fafbfc] md:ml-56">{children}</main>
+        <main className="min-h-screen min-w-0 overflow-x-hidden bg-[#fafbfc] md:ml-56">{children}</main>
       </div>
       {confirmLogout && (
         <div className="fixed inset-0 z-[100] grid place-items-center bg-slate-950/50 p-4 backdrop-blur-sm" onMouseDown={() => setConfirmLogout(false)}>
