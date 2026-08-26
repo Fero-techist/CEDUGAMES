@@ -1,10 +1,48 @@
 import axios from "axios";
 
+let expiryTimer;
+let loggingOut = false;
+
+const forceLogout = () => {
+	if (loggingOut) return;
+	loggingOut = true;
+	window.clearTimeout(expiryTimer);
+	delete axios.defaults.headers.common["Authorization"];
+	try {
+		localStorage.removeItem("DATA_TOKEN");
+		localStorage.removeItem("EXAMPREP_LOGIN");
+		localStorage.removeItem("token");
+		localStorage.removeItem("persist:root");
+	} catch (_) {}
+	if (window.location.pathname !== "/") window.location.replace("/");
+};
+
+const scheduleExpiry = token => {
+	window.clearTimeout(expiryTimer);
+	if (!token) return;
+	try {
+		const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+		const remaining = Number(payload.exp) * 1000 - Date.now();
+		if (!Number.isFinite(remaining) || remaining <= 0) forceLogout();
+		else expiryTimer = window.setTimeout(forceLogout, remaining);
+	} catch (_) { forceLogout(); }
+};
+
+axios.interceptors.response.use(
+	response => response,
+	error => {
+		if (error?.response?.status === 401 && localStorage.getItem("DATA_TOKEN")) forceLogout();
+		return Promise.reject(error);
+	}
+);
+
 export const SetAuthToken = token => {
 	if (token) {
 		axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 		axios.defaults.headers.common["frontend-source"] = "webuser";
+		scheduleExpiry(token);
 	} else {
+		window.clearTimeout(expiryTimer);
 		delete axios.defaults.headers.common["Authorization"];
 		delete axios.defaults.headers.common["frontend-source"];
 	}

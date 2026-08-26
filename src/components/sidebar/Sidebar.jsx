@@ -41,16 +41,16 @@ const Sidebar = ({ children, onSelectPage }) => {
   return (
     <div className=" font-Outfit">
       <button
-        className="absolute top-6 left-2 md:hidden text-md text-[#202020]"
+        className="fixed left-3 top-4 z-20 rounded-lg bg-white p-2 text-md text-[#202020] shadow md:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         <FaBars />
       </button>
       <div className="nav">
         <div
-          className={`fixed w-56 z-10 h-full bg-gradient-to-br  from-[#9B5DE5] to-[#56347F] shadow-lg flex flex-col  transition-transform duration-300 ${
-            isOpen ? "translate-x-0" : "-translate-x-full w-0"
-          } md:translate-x-0 p-5`}
+          className={`fixed inset-y-0 left-0 z-40 w-72 max-w-[86vw] overflow-y-auto overscroll-contain bg-gradient-to-br from-[#9B5DE5] to-[#56347F] p-4 shadow-lg transition-transform duration-300 md:w-56 md:translate-x-0 md:p-5 ${
+            isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         >
           <button
             className="md:hidden relative right-20 block  text-2xl text-white"
@@ -60,7 +60,7 @@ const Sidebar = ({ children, onSelectPage }) => {
           </button>
           <div>
             <Link to="/dashboard">
-              <div className=" mt-20">
+              <div className="mt-10 md:mt-20">
                 <img
                   className=" w-48"
                   src={CEDUGAMES}
@@ -70,12 +70,13 @@ const Sidebar = ({ children, onSelectPage }) => {
             </Link>
           </div>
 
-          <nav className="font-Outfit mt-20">
+          <nav className="font-Outfit mt-10 md:mt-20 pb-6">
             {links.map(({ to, label, icon }) => (
               <Link
                 key={to}
                 to={to}
                 onClick={(event) => {
+                  setIsOpen(false);
                   if (to === "/log-out") {
                     event.preventDefault();
                     setConfirmLogout(true);
@@ -125,7 +126,8 @@ const Sidebar = ({ children, onSelectPage }) => {
             ))}
           </nav> */}
         </div>
-        <div className="md:ml-52  bg-[#fafbfc]">{children}</div>
+        {isOpen && <button aria-label="Close navigation" className="fixed inset-0 z-30 bg-slate-950/40 md:hidden" onClick={() => setIsOpen(false)} />}
+        <main className="min-h-screen w-full overflow-x-hidden bg-[#fafbfc] md:ml-56">{children}</main>
       </div>
       {confirmLogout && (
         <div className="fixed inset-0 z-[100] grid place-items-center bg-slate-950/50 p-4 backdrop-blur-sm" onMouseDown={() => setConfirmLogout(false)}>
