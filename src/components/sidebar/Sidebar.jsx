@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FaCog, FaSignOutAlt, FaBars, FaMobileAlt } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaChevronDown, FaCog, FaGift, FaLayerGroup, FaSignOutAlt, FaBars, FaMobileAlt, FaUsers } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CEDUGAMES from "../../assets/CEDUGAMES.png";
 import {
@@ -20,24 +20,38 @@ const Sidebar = ({ children, onSelectPage }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
-  const links = [
+  const groups = [
+    { id: "players", label: "Players & Rankings", icon: <FaUsers />, children: [
+      { to: "/user-management", label: "User Management", icon: <FaUserGraduate /> },
+      { to: "/leaderboard", label: "Leaderboard", icon: <FaChartLine /> },
+    ] },
+    { id: "learning", label: "Learning Management", icon: <FaLayerGroup />, children: [
+      { to: "/content", label: "Content", icon: <FaBook /> },
+      { to: "/categories", label: "Categories & Levels", icon: <FaTrophy /> },
+    ] },
+    { id: "rewards", label: "Rewards & Wallet", icon: <FaGift />, children: [
+      { to: "/coin-system", label: "Coin System", icon: <FaSchool /> },
+      { to: "/daily-rewards", label: "Daily Rewards", icon: <FaGift /> },
+      { to: "/airtime", label: "Airtime", icon: <FaMobileAlt /> },
+    ] },
+    { id: "administration", label: "Administration", icon: <FaCog />, children: [
+      { to: "/settings", label: "Settings", icon: <FaCog /> },
+      { to: "/admins", label: "Admins", icon: <FaUsers />, page: "admins" },
+    ] },
+  ].map((group) => ({ ...group, children: group.children.filter(({ to, page }) => canAccess(user, page || to.split("/")[1])) })).filter((group) => group.children.length);
+  const standaloneLinks = [
     { to: "/dashboard", label: "Dashboard", icon: <FaUserGraduate /> },
-    {
-      to: "/user-management",
-      label: "User Management",
-      icon: <FaUserGraduate />,
-    },
-    { to: "/content", label: "Content", icon: <FaBook /> },
-    { to: "/leaderboard", label: "Leaderboard", icon: <FaChartLine /> },
-    { to: "/coin-system", label: "Coin System", icon: <FaSchool /> },
-    { to: "/airtime", label: "Airtime", icon: <FaMobileAlt /> },
-    { to: "/daily-rewards", label: "Daily Rewards", icon: <FaSchool /> },
-    { to: "/categories", label: "Categories/Levels", icon: <FaTrophy /> },
     { to: "/notifications", label: "Notifications", icon: <FaChartLine /> },
-    { to: "/settings", label: "Settings", icon: <FaSchool /> },
-    { to: "/admins", label: "Admins", icon: <FaCog />, page: "admins" },
-    { to: "/log-out", label: "Log Out", icon: <FaSignOutAlt /> },
-  ].filter(({ to, page }) => canAccess(user, page || to.split("/")[1]));
+  ].filter(({ to }) => canAccess(user, to.split("/")[1]));
+  const activeGroup = groups.find((group) => group.children.some(({ to }) => location.pathname === to || location.pathname.startsWith(`${to}/`)))?.id;
+  const [openGroups, setOpenGroups] = useState(() => activeGroup ? [activeGroup] : []);
+
+  useEffect(() => {
+    if (activeGroup) setOpenGroups((current) => current.includes(activeGroup) ? current : [...current, activeGroup]);
+  }, [activeGroup]);
+
+  const isActive = (to) => location.pathname === to || location.pathname.startsWith(`${to}/`);
+  const toggleGroup = (id) => setOpenGroups((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
 
   return (
     <div className=" font-Outfit">
@@ -72,25 +86,21 @@ const Sidebar = ({ children, onSelectPage }) => {
           </div>
 
           <nav className="font-Outfit mt-10 md:mt-20 pb-6">
-            {links.map(({ to, label, icon }) => (
+            {standaloneLinks.slice(0, 1).map(({ to, label, icon }) => (
               <Link
                 key={to}
                 to={to}
                 onClick={(event) => {
                   setIsOpen(false);
-                  if (to === "/log-out") {
-                    event.preventDefault();
-                    setConfirmLogout(true);
-                  }
                 }}
-                className={`block relative px-2  py-2 rounded text-sm hover:bg-[#F8F8F8] mb-4 ${
-                  location.pathname === to
+                className={`relative mb-3 block rounded px-2 py-2.5 text-sm hover:bg-[#F8F8F8] ${
+                  isActive(to)
                     ? "bg-purple-200 text-purple-600  active-link"
                     : "text-white hover:text-[#6a0dad]"
                 }`}
               >
                 <span className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg transform scale-0 transition-transform duration-300 origin-left">
-                  {location.pathname === to && (
+                  {isActive(to) && (
                     <span className="block h-full w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"></span>
                   )}
                 </span>
@@ -100,32 +110,19 @@ const Sidebar = ({ children, onSelectPage }) => {
                 </span>
               </Link>
             ))}
+            {groups.map((group) => {
+              const expanded = openGroups.includes(group.id);
+              const groupActive = group.id === activeGroup;
+              return <div key={group.id} className="mb-2">
+                <button type="button" onClick={() => toggleGroup(group.id)} aria-expanded={expanded} className={`flex w-full items-center rounded px-2 py-2.5 text-left text-sm transition ${groupActive ? "bg-white/15 text-white" : "text-white hover:bg-white/10"}`}>
+                  <span className="inline-flex w-5 justify-center">{group.icon}</span><span className="ml-3 flex-1 font-semibold">{group.label}</span><FaChevronDown className={`text-xs transition-transform ${expanded ? "rotate-180" : ""}`} />
+                </button>
+                {expanded && <div className="ml-3 mt-1 border-l border-white/25 pl-3">{group.children.map(({ to, label, icon }) => <Link key={to} to={to} onClick={() => setIsOpen(false)} className={`relative mb-1 flex items-center rounded px-2 py-2.5 text-sm transition ${isActive(to) ? "bg-purple-200 font-semibold text-purple-700" : "text-purple-50 hover:bg-white hover:text-purple-700"}`}><span className="inline-flex w-5 justify-center text-xs">{icon}</span><span className="ml-2">{label}</span></Link>)}</div>}
+              </div>;
+            })}
+            {standaloneLinks.slice(1).map(({ to, label, icon }) => <Link key={to} to={to} onClick={() => setIsOpen(false)} className={`relative mb-3 mt-2 block rounded px-2 py-2.5 text-sm hover:bg-[#F8F8F8] ${isActive(to) ? "bg-purple-200 text-purple-600" : "text-white hover:text-[#6a0dad]"}`}><span className="inline-flex items-center">{icon}<span className="ml-3">{label}</span></span></Link>)}
+            <button type="button" onClick={() => setConfirmLogout(true)} className="mb-2 flex w-full items-center rounded px-2 py-2.5 text-left text-sm text-white hover:bg-white hover:text-[#6a0dad]"><FaSignOutAlt /><span className="ml-3">Log Out</span></button>
           </nav>
-          {/* <nav className="font-Outfit mt-20">
-            {links.map(({ to, label, icon }) => (
-              <Link
-                key={to}
-                to={to}
-                onClick={() => onSelectPage(label)} // NEW: Tell parent the current page
-                className={`block relative py-2 rounded text-sm hover:bg-[#F8F8F8] mb-2 ${
-                  location.pathname === to
-                    ? "bg-purple-200 text-purple-600 active-link"
-                    : "text-white hover:text-[#6a0dad]"
-                }`}
-              >
-                <span className="absolute left-0 top-0 bottom-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg transform scale-0 transition-transform duration-300 origin-left">
-                  {location.pathname === to && (
-                    <span className="block h-full w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"></span>
-                  )}
-                </span>
-
-                <span className="inline-flex items-center">
-                  {icon}
-                  <span className="ml-3">{label}</span>
-                </span>
-              </Link>
-            ))}
-          </nav> */}
         </div>
         {isOpen && <button aria-label="Close navigation" className="fixed inset-0 z-30 bg-slate-950/40 md:hidden" onClick={() => setIsOpen(false)} />}
         <main className="min-h-screen min-w-0 overflow-x-hidden bg-[#fafbfc] md:ml-56">{children}</main>
