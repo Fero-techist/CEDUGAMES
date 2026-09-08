@@ -44,14 +44,14 @@ const Sidebar = ({ children, onSelectPage }) => {
     { to: "/notifications", label: "Notifications", icon: <FaChartLine /> },
   ].filter(({ to }) => canAccess(user, to.split("/")[1]));
   const activeGroup = groups.find((group) => group.children.some(({ to }) => location.pathname === to || location.pathname.startsWith(`${to}/`)))?.id;
-  const [openGroups, setOpenGroups] = useState(() => activeGroup ? [activeGroup] : []);
+  const [openGroup, setOpenGroup] = useState(() => activeGroup || null);
 
   useEffect(() => {
-    if (activeGroup) setOpenGroups((current) => current.includes(activeGroup) ? current : [...current, activeGroup]);
+    if (activeGroup) setOpenGroup(activeGroup);
   }, [activeGroup]);
 
   const isActive = (to) => location.pathname === to || location.pathname.startsWith(`${to}/`);
-  const toggleGroup = (id) => setOpenGroups((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+  const toggleGroup = (id) => setOpenGroup((current) => current === id ? null : id);
 
   return (
     <div className=" font-Outfit">
@@ -111,7 +111,7 @@ const Sidebar = ({ children, onSelectPage }) => {
               </Link>
             ))}
             {groups.map((group) => {
-              const expanded = openGroups.includes(group.id);
+              const expanded = openGroup === group.id;
               const groupActive = group.id === activeGroup;
               return <div key={group.id} className="mb-2">
                 <button type="button" onClick={() => toggleGroup(group.id)} aria-expanded={expanded} className={`flex w-full items-center rounded px-2 py-2.5 text-left text-sm transition ${groupActive ? "bg-white/15 text-white" : "text-white hover:bg-white/10"}`}>
