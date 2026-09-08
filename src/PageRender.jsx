@@ -17,6 +17,7 @@ const pages = {
   "coin-system/edit-coin-package": lazy(() => import("./pages/coin-system/edit-coin-package")),
   "coin-system/event-key-guide": lazy(() => import("./pages/coin-system/event-key-guide")),
   "coin-system/life-settings": lazy(() => import("./pages/coin-system/life-settings")),
+  airtime: lazy(() => import("./pages/airtime")),
   "daily-rewards": lazy(() => import("./pages/daily-rewards")),
   categories: lazy(() => import("./pages/categories")),
   "categories/add-age-group": lazy(() => import("./pages/categories/add-age-group")),

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaCog, FaSignOutAlt, FaBars } from "react-icons/fa";
+import { FaCog, FaSignOutAlt, FaBars, FaMobileAlt } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CEDUGAMES from "../../assets/CEDUGAMES.png";
 import {
@@ -30,6 +30,7 @@ const Sidebar = ({ children, onSelectPage }) => {
     { to: "/content", label: "Content", icon: <FaBook /> },
     { to: "/leaderboard", label: "Leaderboard", icon: <FaChartLine /> },
     { to: "/coin-system", label: "Coin System", icon: <FaSchool /> },
+    { to: "/airtime", label: "Airtime", icon: <FaMobileAlt /> },
     { to: "/daily-rewards", label: "Daily Rewards", icon: <FaSchool /> },
     { to: "/categories", label: "Categories/Levels", icon: <FaTrophy /> },
     { to: "/notifications", label: "Notifications", icon: <FaChartLine /> },
