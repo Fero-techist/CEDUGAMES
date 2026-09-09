@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaCog, FaGift, FaLayerGroup, FaSignOutAlt, FaBars, FaMobileAlt, FaUsers } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import CEDUGAMES from "../../assets/CEDUGAMES.png";
+import CEDUGAMES from "../../assets/cedugames-logo.png";
 import {
   FaUserGraduate,
   FaBook,

@@ -4,7 +4,7 @@ import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import CEDUGAMES from "../assets/CEDUGAMES.png";
+import CEDUGAMES from "../assets/cedugames-logo.png";
 import { SetAuthToken } from "../data/Config";
 import { login } from "../data/Reducers/UserReducer";
 import { getDefaultRoute } from "../data/adminAuth";

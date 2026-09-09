@@ -8,12 +8,13 @@
     />
     <meta
       name="theme-color"
-      content="#000000"
+      content="#56347f"
     />
     <meta
       name="description"
-      content="With our transformative software solutions, our platform is your one-stop destination for staying ahead of the curve"
+      content="Cedugames administration portal"
     />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/cedugames-logo.png" />
     <link
       rel="manifest"
       href="%PUBLIC_URL%/manifest.json"
@@ -57,7 +58,7 @@
         width: 100%;
         height: 100%;
         z-index: 999999999 !important;
-        background-color: rgba(42, 114, 204);
+        background: radial-gradient(circle at top, #fff 0, #f9f5ff 55%, #f2eaff 100%);
         top: 0;
         left: 0;
         right: 0;
@@ -71,6 +72,9 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
+
+      .launch-logo { width: min(360px, 72vw); animation: launch-pulse 1.6s ease-in-out infinite; }
+      @keyframes launch-pulse { 50% { transform: translateY(-5px) scale(1.02); } }
 
       @keyframes arrow-spin {
         100% {
@@ -212,12 +216,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class="preloader preloader-dark">
       <div class="lds-ellipsis">
-        <div class="psoload">
-          <div class="straight"></div>
-          <div class="curve"></div>
-          <div class="center"></div>
-          <div class="inner"></div>
-        </div>
+        <img class="launch-logo" src="/cedugames-logo.png" alt="Cedugames" />
       </div>
     </div>
     <div id="root"></div>

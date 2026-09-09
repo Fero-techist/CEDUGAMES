@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useAuthStore from "./data/Stores/Authstore";
+import brandLogo from "./assets/cedugames-logo.png";
 
 const pages = {
   dashboard: lazy(() => import("./pages/dashboard")),
@@ -37,7 +38,10 @@ const pages = {
 
 const PageLoader = () => (
   <div className="grid min-h-[60vh] place-items-center" role="status" aria-live="polite">
-    <div className="h-10 w-10 animate-spin rounded-full border-4 border-purple-200 border-t-purple-600" />
+    <div className="text-center">
+      <img src={brandLogo} alt="Cedugames" className="brand-loader-logo" />
+      <div className="brand-loader-dots mt-5" aria-hidden="true"><span /><span /><span /></div>
+    </div>
     <span className="sr-only">Loading page</span>
   </div>
 );
